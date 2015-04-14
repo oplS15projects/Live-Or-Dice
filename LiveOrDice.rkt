@@ -72,7 +72,7 @@
                    [label "25"]
                    ))
 
-;Mess4 keeps track of the current of the game
+;Mess4 keeps track of the game's current state
 (define mess4 (new message% [parent msubpanel2]
                    [label "The game begins"]
                    ))
