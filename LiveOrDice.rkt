@@ -1,13 +1,18 @@
 #lang racket
 (require racket/gui/base)
 
-
 ;This is the starting frame
 (define mainframe (new frame% [label "Live or Dice"]
                               [alignment '(center bottom)]
-                              [width 300]
+                              [width 300] 
                               [height 300]
                               ))
+(new canvas% [parent mainframe]
+             [paint-callback
+              (lambda (canvas dc)
+                (send dc set-scale 3 3)
+                (send dc set-text-foreground "blue")
+                (send dc draw-text "Live or Dice!" 0 0))])
 
 ;Top panel which contains two subpanel
 ;These subpanels are bordered for clarity
@@ -69,17 +74,17 @@
 
 ;Mess3 keeps track of player 1 score
 (define mess3 (new message% [parent msubpanel1]
-                   [label "25"]
+                   [label "HP:"]
                    ))
 
-;Mess4 keeps track of the game's current state
+;Mess4 keeps track of the current of the game
 (define mess4 (new message% [parent msubpanel2]
                    [label "The game begins"]
                    ))
 
 ;Mess5 keeps track of player 2 score
 (define mess5 (new message% [parent msubpanel3]
-                   [label "50"]
+                   [label "HP:"]
                    ))
 
 ;Roll simply allows you to roll the dice as many times as you wish
@@ -89,18 +94,24 @@
 ;Pass will change the state and go over to the other player
 (new button% [parent bpanel] [label "Pass"])
 
+;Exit Button
+(new button% [parent bpanel]
+             [label "Exit"]
+             [callback (lambda (button event) (exit))])
 
+;GAUGE FOR PLAYER 1
+(define gauge1 (new gauge%
+                   (label "")
+                   (parent msubpanel1)
+                   (range 100)))
+(send gauge1 set-value 42)
 
-
-
-
-
-
-
-
-
-
-
+;GAUGE FOR PLAYER 2
+(define gauge2 (new gauge%
+                   (label "")
+                   (parent msubpanel3)
+                   (range 100)))
+(send gauge2 set-value 42)
 
 
 (send mainframe show #t)
