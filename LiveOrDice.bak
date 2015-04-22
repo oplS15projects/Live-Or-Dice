@@ -1,27 +1,13 @@
 #lang racket
 (require racket/gui/base)
 
-;players
-(define (player1) 0)
-(define (player2) 0)
-
-;roll function
-(define (roll)
-  (+ 1( random 6)))
 
 ;This is the starting frame
 (define mainframe (new frame% [label "Live or Dice"]
                               [alignment '(center bottom)]
-                              [width 300] 
+                              [width 300]
                               [height 300]
                               ))
-
-(new canvas% [parent mainframe]
-             [paint-callback
-              (lambda (canvas dc)
-                (send dc set-scale 3 3)
-                (send dc set-text-foreground "blue")
-                (send dc draw-text "Live or Dice!" 0 0))])
 
 ;Top panel which contains two subpanel
 ;These subpanels are bordered for clarity
@@ -41,17 +27,6 @@
                     [alignment '(center center)]
                     [style '(border)]
                     ))
-
-(define tsubpanel3 (new horizontal-panel% [parent tpanel]
-                    [alignment '(center center)]
-                    [style '(border)]
-                    ))
-
-
-; Make a static text message in the frame
-(define msg (new message% [parent tsubpanel3]
-                          [label "No events so far..."]))
-
 
 ;Middle panel contains three subpanels
 ;All three messages are expected to change according to different states
@@ -94,46 +69,38 @@
 
 ;Mess3 keeps track of player 1 score
 (define mess3 (new message% [parent msubpanel1]
-                   [label "HP:"]
+                   [label "25"]
                    ))
 
-;Mess4 keeps track of the current of the game
+;Mess4 keeps track of the game's current state
 (define mess4 (new message% [parent msubpanel2]
                    [label "The game begins"]
                    ))
 
 ;Mess5 keeps track of player 2 score
 (define mess5 (new message% [parent msubpanel3]
-                   [label "HP:"]
+                   [label "50"]
                    ))
 
 ;Roll simply allows you to roll the dice as many times as you wish
 ;at least until you press "pass"
-(new button% [parent bpanel] [label "Roll"]
-     [callback (lambda (button event)
-                 (send msg set-label (number->string (roll))))])
+(new button% [parent bpanel] [label "Roll"])
 
 ;Pass will change the state and go over to the other player
 (new button% [parent bpanel] [label "Pass"])
 
-;Exit Button
-(new button% [parent bpanel]
-             [label "Exit"]
-             [callback (lambda (button event) (exit))])
 
-;GAUGE FOR PLAYER 1
-(define gauge1 (new gauge%
-                   (label "")
-                   (parent msubpanel1)
-                   (range 100)))
-(send gauge1 set-value (player1))
 
-;GAUGE FOR PLAYER 2
-(define gauge2 (new gauge%
-                   (label "")
-                   (parent msubpanel3)
-                   (range 100)))
-(send gauge2 set-value (player2))
+
+
+
+
+
+
+
+
+
+
 
 
 (send mainframe show #t)
