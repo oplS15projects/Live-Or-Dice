@@ -3,16 +3,8 @@
 (require racket/gui)
 
 ;roll function
-(define b 0)
-(define (dice) (+ 1 (random 6)))
-(define sum  (lambda ()  (set! b (+ b (dice)))))
-
-(define (conf n) (if (= (dice) 1)
-                 (set! b 0)
-                 b)b)
-
-
-(define (roll) (sum) (conf b))
+(define (roll)
+  (+ 1( random 6)))
 
 ;Frame Main Window
 ; Make a frame by instantiating the frame% class
@@ -43,7 +35,7 @@
                 (send dc set-text-foreground "blue")
                 (send dc draw-text "ROLL IT!" 0 0))])
 
-
+(send frame show #t)
 
 (define panel (new horizontal-panel% [parent frame]
                    [alignment '(center center)]))
@@ -51,5 +43,3 @@
              [label "Roll"]
              [callback (lambda (button event)
                          (send msg set-label (number->string (roll))))])
-
-(send frame show #t)
