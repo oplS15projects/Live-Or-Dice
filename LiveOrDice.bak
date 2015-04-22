@@ -6,16 +6,8 @@
 (define (player2) 0)
 
 ;roll function
-(define b 0)
-(define (dice) (+ 1 (random 6)))
-(define sum  (lambda ()  (set! b (+ b (dice)))))
-
-(define (conf n) (if (= (dice) 1)
-                 (set! b 0)
-                 b)b)
-
-
-(define (roll) (sum) (conf b))
+(define (roll)
+  (+ 1( random 6)))
 
 ;This is the starting frame
 (define mainframe (new frame% [label "Live or Dice"]
