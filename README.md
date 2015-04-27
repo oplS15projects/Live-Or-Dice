@@ -16,7 +16,7 @@ Rules are very simple:
   * The objective of the game is to get to 100 points before the other player.
 
 ##Screenshot
-![screenshot of program](https://github.com/lqtran/FP1/blob/master/program.JPG "Live-Or-Dice")
+![screenshot of program](program.JPG "Live-Or-Dice")
 
 ##Concepts Demonstrated
 * **Data abstraction** is used find the conditions of changing players.
