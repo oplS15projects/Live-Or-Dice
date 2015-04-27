@@ -61,4 +61,5 @@ Our main library was racket's own GUI (racket/gui/base) library.  It gave us the
 We did enjoy writing this code together, but we wished this was more of a semester long project so we could've polished it much more than we wanted.
 
 #How to Download and Run
-Should be able to download the .rkt and run the program properly without any other externals aside from using DrRacket.
+Should be able to download the package, extract it and run the .rkt in the folder, properly without any other externals aside from using DrRacket.
+[Program link here](https://github.com/oplS15projects/Live-Or-Dice/releases/tag/v1.0)
