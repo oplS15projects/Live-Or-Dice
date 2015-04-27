@@ -1,52 +1,64 @@
-# FP7-webpage Title of Project
-This is a template for using your repo's README.md as your project web page. 
-I recommend you copy and paste into your README file. Delete this line and the one above it, customize everything else. Make it look good!
+# Live-Or-Dice
 
 ##Authors
-Person One
 
-Person Two
+* Charlie Sopiep
+* Taner Albayrak
+* Long Tran
 
 ##Overview
-A brief description of the project is given here.  The description is 1 to 3 sentences long.  Be concise and clear.
+
+A basic GUI program of the game called Pig the Dice. The game has two players, where each player takes turn rolling a dice up to 100.
+Rules are very simple:
+* Each player rolls until they hit either 1 or they pass.
+  * Rolling 1 will reset their total score for that turn.
+  * Pass will let them keep their score (also adding on to the last turn).
+  * The objective of the game is to get to 100 points before the other player.
 
 ##Screenshot
-(insert a screenshot here. You may opt to get rid of the title for it. You need at least one screenshot. Make it actually appear here, don't just add a link.)
-
-Here's a demonstration of how to display an image that's uploaded to this repo:
-![screenshot showing env diagram](withdraw.png)
+![screenshot of program](https://github.com/lqtran/FP1/blob/master/program.JPG "Live-Or-Dice")
 
 ##Concepts Demonstrated
-Identify the OPL concepts demonstrated in your project. Be brief. A simple list and example is sufficient. 
-* **Data abstraction** is used to provide access to the elements of the RSS feed.
-* The objects in the OpenGL world are represented with **recursive data structures.**
-* **Symbolic language processing techniques** are used in the parser.
+* **Data abstraction** is used find the conditions of changing players.
+* **Symbolic Data** helped us with the conditions of winningthe game.
+* **Environments and Objects** was our base concept of how to code this program.
 
 ##External Technology and Libraries
-Briefly describe the existing technology you utilized, and how you used it. Provide a link to that technology(ies).
+Our main library was racket's own GUI (racket/gui/base) library.  It gave us the tools to make everything work with the program we coded. Also with the help of DrRacket and GitHub to make everything accessible for our team to work together.
 
 ##Favorite Lines of Code
-####Mark (a team member)
-Each team member should identify a favorite line of code, expression, or procedure written by them, and explain what it does. Why is it your favorite? What OPL philosophy does it embody?
-Remember code looks something like this:
+####Charlie (a team member)
+"A button that really determines who wins, not the roll button of course."
 ```scheme
-(map (lambda (x) (foldr compose functions)) data)
+(new button% [parent bpanel1] 
+     [label "Pass"]
+     [callback (lambda (t e) 
+             (if (equal? state "Player 1's Turn") 
+             (begin(set! state "Player 2's Turn")(p2)(p1store)(p3)(set! rolltrac 0)(p4))
+             (begin(set! state "Player 1's Turn")(p1)(p2store)(p5)(set! rolltrac 0)(p4))
+             ))]
+     )
 ```
-####Lillian (another team member)
-This expression reads in a regular expression and elegantly matches it against a pre-existing hashmap....
+
+####Taner (another team member)
+"It initializes the actual window and shows how to display it."
 ```scheme
-(let* ((expr (convert-to-regexp (read-line my-in-port)))
-             (matches (flatten
-                       (hash-map *words*
-                                 (lambda (key value)
-                                   (if (regexp-match expr key) key '()))))))
-  matches)
+(define mainframe (new frame% [label "Live or Dice"]
+                              [alignment '(center bottom)]
+                              [width 300] 
+                              [height 300]
+                              ))
+```
+
+####Long (another team member)
+"Who doesn't like to know who wins, I do."
+```scheme
+(define (p1win) (message-box "Results" "Player One Wins     " mainframe '(ok)))
+(define (p2win) (message-box "Results" "Player Two Wins     " mainframe '(ok)))
 ```
 
 ##Additional Remarks
-Anything else you want to say in your report. Can rename or remove this section.
+We did enjoy writing this code together, but we wished this was more of a semester long project so we could've polished it much more than we wanted.
 
 #How to Download and Run
-You may want to link to your latest release for easy downloading by people (such as Mark).
-
-Include what file to run, what to do with that file, how to interact with the app when its running, etc. 
+Should be able to download the .rkt and run the program properly without any other externals aside from using DrRacket.
