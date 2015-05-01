@@ -76,10 +76,12 @@
                       [spacing 10]
                       ))
 
+
 ;mess1 located in tpanel should be static and accepts no input
 (define mess1 (new message% [parent tsubpanel1]
                    [label "Player 1 total   "]
                    ))
+
 ;mess2 located in tpanel is dynamic and accepts the current state given to it
 (define mess2 (new message% [parent tsubpanel2]
                    [label state]
@@ -110,6 +112,7 @@
 (let ([new-es (make-eventspace)])
   (parameterize ([current-eventspace new-es])
     (lambda () (send mess2 set-label "Player 1's Turn")))))
+
 (define p2
 (let ([new-es (make-eventspace)])
   (parameterize ([current-eventspace new-es])
@@ -134,8 +137,11 @@
     (lambda () (send mess6 set-label (number->string player2score))))))
 
 ;p1win and p2win display a message to the player if the winning conditions are met
+;p1turn and p2turn display the current state
 (define (p1win) (message-box "Results" "Player One Wins     " mainframe '(ok)))
 (define (p2win) (message-box "Results" "Player Two Wins     " mainframe '(ok)))
+(define (p1turn) (message-box "Rolled a one" "Player One's Turn     " mainframe '(ok)))
+(define (p2turn) (message-box "Rolled a one" "Player Two's Turn     " mainframe '(ok)))
 
 ;determines who goes first
 (define turn (if (>= (chance) 5)
@@ -146,6 +152,7 @@
 (define (nullify)(set! player1score 0)
                  (set! player2score 0)
                  (set! rolltrac 0))
+
 
 ;first four conditions check the winning condition
 ;which requires the player to have 100 or more points
@@ -162,9 +169,9 @@
                        ((and (>= player2score 100) (equal? state "Player 2's Turn")) 
                             (p2win)(nullify)(p1)(p3)(p4)(p5))
                        ((and (= trdice 1) (equal? state "Player 1's Turn")) 
-                            (set! rolltrac 0)(set! state "Player 2's Turn")(p2))
+                            (set! rolltrac 0)(set! state "Player 2's Turn")(p2)(p2turn))
                        ((and (= trdice 1)(equal? state "Player 2's Turn")) 
-                             (set! rolltrac 0)(set! state "Player 1's Turn")(p1))
+                             (set! rolltrac 0)(set! state "Player 1's Turn")(p1)(p1turn))
                        (else rolltrac))rolltrac) 
 
 ;rolls the dice and adds it to the total sum while checking if the above conditions are met
@@ -182,14 +189,20 @@
              (if (equal? state "Player 1's Turn") 
              (begin(set! state "Player 2's Turn")(p2)(p1store)(p3)(set! rolltrac 0)(p4))
              (begin(set! state "Player 1's Turn")(p1)(p2store)(p5)(set! rolltrac 0)(p4))
-             ))]
-     )
+             ))])
+
+;clears the board for a new game to start
+;sets the turn to the current player
+(new button% [parent bpanel1]
+     [label "Clear"]
+[callback (lambda (b e) (nullify)(p3)(p4)(p5))]
+)
 
 
 ;exits the game
 (new button% [parent bpanel1]
              [label "Exit"]
-             [callback (lambda (button event) (exit))])
+             [callback (lambda (b e) (exit))])
 
 
 
